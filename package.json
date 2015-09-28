@@ -1,0 +1,26 @@
+{
+  "name": "hugla-http",
+  "version": "0.1.0",
+  "description": "hugla web framework's node back-end http module",
+  "keywords": [
+    "web",
+    "framework",
+    "hugla",
+    "http"
+  ],
+  "license": "",
+  "author": "noosxe <noosx.e@gmail.com> (https://noosxe.com/)",
+  "dependencies": {
+    "hugla-logger": "git+ssh://git@bitbucket.org:hugla/hugla-node-logger.git"
+  },
+  "devDependencies": {
+    "mocha": "2.3.3",
+    "chai": "2.1.0",
+    "jshint": "2.8.0"
+  },
+  "scripts": {
+    "lint": "jshint index.js lib/**.js",
+    "test": "mocha --reporter spec --bail"
+  }
+
+}
