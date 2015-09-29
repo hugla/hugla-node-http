@@ -15,7 +15,7 @@ describe("HuglaHttp", function() {
   beforeEach(function() {
     testApp = {
       config: {
-
+        appDir: __dirname
       },
       registerLaunchAction: function() {
 
@@ -47,15 +47,70 @@ describe("HuglaHttp", function() {
     expect(testApp.registerShutdownAction).to.have.been.called;
   });
 
-  describe("#setup()", function(done) {
+  it("should throw an error if config.appDir is not defined", function() {
+    testApp.config.appDir = undefined;
+    expect(HuglaHttp).to.throw(Error);
+  });
 
+  describe("#setup()", function(done) {
+    it("should call the callback without error", function(done) {
+      const http = new HuglaHttp(testApp);
+      http.setup(function(err) {
+        expect(err).to.not.exist;
+        done();
+      });
+    });
   });
 
   describe("#run()", function(done) {
+    let http = null;
 
+    beforeEach(function() {
+      http = new HuglaHttp(testApp);
+    });
+
+    afterEach(function() {
+      http.close();
+    });
+
+    it("should call the callback without error", function(done) {
+      http.setup(function(err) {
+        http.run(function(err) {
+          expect(err).to.not.exist;
+          done();
+        });
+      });
+    });
   });
 
   describe("#close()", function(done) {
+    it("should call the callback without error", function(done) {
+      const http = new HuglaHttp(testApp);
+      http.setup(function(err) {
+        http.run(function(err) {
+          http.close(function(err) {
+            expect(err).to.not.exist;
+            done();
+          });
+        });
+      });
+    });
+  });
 
+  describe("#registerController()", function(done) {
+    it("should register new router with express", function(done) {
+      const http = new HuglaHttp(testApp);
+      http.setup(function(err) {
+        http.app = {
+          use: function() {
+            done();
+          }
+        };
+        http.registerController({
+          name: 'test',
+          root: '/'
+        });
+      });
+    });
   });
 });
