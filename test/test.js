@@ -148,12 +148,15 @@ describe("HuglaHttp", function() {
     });
   });
 
-  describe("#registerController()", function(done) {
+  describe("#registerController()", function() {
     it("should register new router with express", function(done) {
       const http = new HuglaHttp(testApp);
       http.setup(function(err) {
         http.app = {
-          use: function() {
+          use: function(root, router) {
+            expect(root).to.be.equal('/');
+            expect(router).to.exist;
+
             done();
           }
         };
