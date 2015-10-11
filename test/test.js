@@ -95,6 +95,24 @@ describe("HuglaHttp", function() {
       http.setup(function(err) {});
       expect(spy).to.have.been.calledOnce;
     });
+
+    // TODO: find a proper way to test this
+    it("should setup asset routes", function() {
+      testApp.config.assets = { '/assets': 'assets' };
+      const http = new HuglaHttp(testApp);
+      http.setup(function(err) {});
+    });
+
+    it("should call #registerController with description", function() {
+      const contrDesc = { root: '/', name: 'index' };
+      testApp.config.controllers = [contrDesc];
+
+      const spy = sinon.spy();
+      const http = new HuglaHttp(testApp);
+      http.registerController = spy;
+      http.setup(function(err) {});
+      expect(spy).to.have.been.calledWithExactly(contrDesc);
+    });
   });
 
   describe("#run()", function(done) {
