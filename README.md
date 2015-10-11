@@ -13,3 +13,7 @@ The following configuration properties are required
   "appDir": "./app"
 }
 ```
+
+## License
+
+[MIT](LICENSE)
