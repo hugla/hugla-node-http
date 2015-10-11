@@ -26,7 +26,7 @@
   },
   "scripts": {
     "lint": "jshint index.js lib/**.js",
-    "test": "mocha --reporter spec --bail",
-    "test-ci": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec"
+    "test": "HUGLA_SILENT=true mocha --reporter spec --bail",
+    "test-ci": "HUGLA_SILENT=true istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec"
   }
 }

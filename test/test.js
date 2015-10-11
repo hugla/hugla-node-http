@@ -29,6 +29,13 @@ describe("HuglaHttp", function() {
     };
   });
 
+  it("should throw an error if no appDir config is provided", function() {
+    testApp.config.appDir = undefined;
+    expect(function() {
+      const http = new HuglaHttp(testApp);
+    }).to.throw(Error);
+  });
+
   it("should call app#registerLaunchAction() method", function() {
     testApp.registerLaunchAction = sinon.spy();
     const http = new HuglaHttp(testApp);
