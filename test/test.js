@@ -67,6 +67,34 @@ describe("HuglaHttp", function() {
         done();
       });
     });
+
+    it("should set views dir on express app if viewEngine is provided",
+    function(done) {
+      testApp.config.viewEngine = 'jade';
+      const http = new HuglaHttp(testApp);
+      http.setup(function(err) {
+        expect(http.app.get('views')).to.be.equal(__dirname + '/views');
+        done();
+      });
+    });
+
+    it("should set 'view engine' on express app if viewEngine is provided",
+    function(done) {
+      testApp.config.viewEngine = 'jade';
+      const http = new HuglaHttp(testApp);
+      http.setup(function(err) {
+        expect(http.app.get('view engine')).to.be.equal('jade');
+        done();
+      });
+    });
+
+    it("should call middleware action", function() {
+      const spy = sinon.spy();
+      const http = new HuglaHttp(testApp);
+      http.addMiddlewareSetupAction(spy);
+      http.setup(function(err) {});
+      expect(spy).to.have.been.calledOnce;
+    });
   });
 
   describe("#run()", function(done) {
