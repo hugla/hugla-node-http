@@ -122,8 +122,8 @@ describe("HuglaHttp", function() {
       http = new HuglaHttp(testApp);
     });
 
-    afterEach(function() {
-      http.close();
+    afterEach(function(done) {
+      http.close(done);
     });
 
     it("should call the callback without error", function(done) {
@@ -157,6 +157,20 @@ describe("HuglaHttp", function() {
 
         const err = new Error("test");
         err.code = 'EADDRINUSE';
+        http.http.emit('error', err);
+      });
+    });
+
+    it("should log the error in case of http error occurs",
+    function(done) {
+      const err = new Error("test");
+      http.log = { error: function (res) {
+        expect(res).to.be.equal(err);
+        done();
+      }}
+      http.setup(function() {
+        http.run(function(err) {
+        });
         http.http.emit('error', err);
       });
     });
