@@ -91,13 +91,29 @@ describe("HuglaHttp", function() {
   });
 
   describe("#close()", function(done) {
-    it("should call the callback without error", function(done) {
+    it("should call the callback without error in case server is running",
+    function(done) {
       const http = new HuglaHttp(testApp);
       http.setup(function(err) {
         http.run(function(err) {
           http.close(function(err) {
             expect(err).to.not.exist;
             done();
+          });
+        });
+      });
+    });
+
+    it("should call the callback without error in case server is not running",
+    function(done) {
+      const http = new HuglaHttp(testApp);
+      http.setup(function(err) {
+        http.run(function(err) {
+          http.close(function(err) {
+            http.close(function(err) {
+              expect(err).to.not.exist;
+              done();
+            });
           });
         });
       });
@@ -118,6 +134,14 @@ describe("HuglaHttp", function() {
           root: '/'
         });
       });
+    });
+  });
+
+  describe("#addMiddlewareSetupAction()", function() {
+    it("should add action to internal action list", function() {
+      const http = new HuglaHttp(testApp);
+      http.addMiddlewareSetupAction(function() {});
+      expect(http.middlewareActions).to.have.length(1);
     });
   });
 });
