@@ -134,6 +134,32 @@ describe("HuglaHttp", function() {
         });
       });
     });
+
+    it("should call the callback with error in case called twice",
+    function(done) {
+      http.setup(function() {
+        http.run(function() {
+          http.run(function(err) {
+            expect(err).to.be.an.instanceof(Error);
+            done();
+          });
+        });
+      });
+    });
+
+    it("should call the callback with error in case of EADDRINUSE",
+    function(done) {
+      http.setup(function() {
+        http.run(function(err) {
+          expect(err).to.be.an.instanceof(Error);
+          done();
+        });
+
+        const err = new Error("test");
+        err.code = 'EADDRINUSE';
+        http.http.emit('error', err);
+      });
+    });
   });
 
   describe("#close()", function(done) {
