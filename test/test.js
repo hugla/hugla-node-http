@@ -96,6 +96,14 @@ describe("HuglaHttp", function() {
       expect(spy).to.have.been.calledOnce;
     });
 
+    it("should call middleware action with 2 params", function() {
+      const spy = sinon.spy();
+      const http = new HuglaHttp(testApp);
+      http.addMiddlewareSetupAction(spy);
+      http.setup(function(err) {});
+      expect(spy).to.have.been.calledWithExactly(http.app, http.http);
+    });
+
     // TODO: find a proper way to test this
     it("should setup asset routes", function() {
       testApp.config.assets = { '/assets': 'assets' };
