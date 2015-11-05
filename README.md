@@ -37,7 +37,7 @@ The following configuration properties are optional
 
 ## Plugging in
 
-In case you need some middleware to be added to express' middleware chain use ``` .addMiddlewareSetupAction() ``` method on ``` HuglaHttp ``` class instance, providing a function that needs to be called during middleware setup process. That method will called with express app argument, that you can use to attach your middleware.
+In case you need some middleware to be added to express' middleware chain use ``` .addMiddlewareSetupAction() ``` method on ``` HuglaHttp ``` class instance, providing a function that needs to be called during middleware setup process. That method will be called with express app argument, that you can use to attach your middleware.
 ``` .addMiddlewareSetupAction() ``` method needs to be called before ``` .setup() ``` is called for ``` HuglaHttp ``` class instance, as middleware setup process happens during ``` .setup() ``` method execution.
 
 Middleware setup action will also receive node's http server as second argument.
