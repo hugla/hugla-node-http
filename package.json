@@ -1,6 +1,6 @@
 {
   "name": "hugla-http",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "hugla web framework's node back-end http module",
   "keywords": [
     "web",
