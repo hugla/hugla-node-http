@@ -13,7 +13,7 @@
   "author": "noosxe <noosx.e@gmail.com> (https://noosxe.com/)",
   "main": "./lib/hugla-http.js",
   "dependencies": {
-    "hugla-logger": "0.1.x",
+    "hugla-logger": "0.2.x",
     "express": "4.13.3"
   },
   "devDependencies": {
@@ -29,7 +29,7 @@
     "jest": "^20.0.4"
   },
   "scripts": {
-    "compile": "babel --presets es2015,es2016 -d lib/ src/",
+    "compile": "babel -d lib/ src/",
     "prepublish": "npm run compile",
     "lint": "./node_modules/.bin/eslint --ext .js src",
     "test": "./node_modules/.bin/jest --silent",
