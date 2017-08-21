@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 
-const HuglaLogger = require('hugla-logger');
+import HuglaLogger from 'hugla-logger';
 
 /**
  * HuglaHttp - Hugla web framework's http module
